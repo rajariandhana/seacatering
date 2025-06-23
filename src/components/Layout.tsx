@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
 import { Inter } from "next/font/google";
-
+import Header from "./Header";
+import PageHead from "./PageHead";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100","200","300","400","500","600","700","800","900"]
@@ -9,12 +11,17 @@ const inter = Inter({
 //   weight: ["200","300","400","500","600","700","800"]
 // });
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+interface PropType {
+  title?: string;
+  children: ReactNode;
+}
+
+const Layout = (props: PropType) => {
+  const {title, children} = props;
   return (
     <div className={`flex min-h-screen flex-col items-center justify-between bg-gray-50 ${inter.className}`}>
-      <header className="w-full bg-white border h-20">
-        Header
-      </header>
+      <PageHead title={title}></PageHead>
+      <Header/>
       <main className="flex flex-col items-center justify-center">
         {children}
       </main>
