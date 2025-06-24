@@ -28,7 +28,7 @@ export default function Home() {
           </p>
           <Button
             as={Link}
-            href="/"
+            href="/meal-plans"
             className="bg-orange-400 rounded-full w-fit font-semibold"
           >
             SEE PLANS

@@ -37,7 +37,7 @@ export default function Header2() {
   return (
     <header className="w-full py-2 lg:py-4">
     <Navbar onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent>
+      <NavbarContent className="md:-ml-0 lg:-ml-12 xl:-ml-32">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
