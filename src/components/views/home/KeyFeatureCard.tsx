@@ -15,7 +15,7 @@ const KeyFeatureCard = (props: PropType) => {
         {image}
       </div>
       <div className="">
-        <span className={`${domine.className} text-xl lg:text-2xl mt-2`}>{title}</span>
+        <span className={`${domine.className} text-md lg:text-2xl mt-2`}>{title}</span>
         <p className="mt-1 hidden lg:flex">{description}</p>
       </div>
     </div>

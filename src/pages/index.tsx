@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 items-center gap-4 lg:mt-32">
+      <section className="grid grid-cols-1 lg:grid-cols-2 items-center gap-4 lg:mt-32 px-6">
         <div className="flex flex-col gap-y-2">
           <h1 className={`text-4xl lg:text-6xl ${domine.className}`}>
             Healthy Meals, Anytime, Anywhere
@@ -38,28 +38,28 @@ export default function Home() {
 
         </Image>
       </section>
-      <section className="w-screen bg-orange-100 px-12 lg:px-44 py-6 lg:py-12 justify-center items-center">
+      <section className="w-screen bg-orange-100 px-6 lg:px-12 lg:px-44 py-6 lg:py-12 justify-center items-center">
         {/* <h1 className={`text-center text-4xl ${domine.className}`}>Why we{"'"}re the right choice for you</h1> */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <KeyFeatureCard
             title="Customizable Meals"
             description="Tailor your meals to fit your dietary needs, preferences, and lifestyle—because one size doesn't fit all."
             image={
-              <Image src="/home/plate.png" alt="Delivery Icon" width={0} height={0}  className="rounded-none h-16 lg:h-24 w-fit"/>
+              <Image src="/home/plate.png" alt="Delivery Icon" width={0} height={0}  className="rounded-none h-10 lg:h-24 w-fit"/>
             }
           />
           <KeyFeatureCard
             title="Nationwide Delivery"
             description="From Jakarta to Jayapura, we deliver fresh meals to major cities across Indonesia."
             image={
-              <Image src="/home/indonesia-map.png" alt="Delivery Icon" width={0} height={0}  className="rounded-none h-16 lg:h-24 w-fit"/>
+              <Image src="/home/indonesia-map.png" alt="Delivery Icon" width={0} height={0}  className="rounded-none h-10 lg:h-24 w-fit"/>
             }
           />
           <KeyFeatureCard
             title="Nutritional Transparency"
             description="Know exactly what you're eating with detailed nutritional breakdowns for every dish."
             image={
-              <Image src="/home/nutrition.png" alt="Delivery Icon" width={0} height={0}  className="rounded-none h-16 lg:h-24 w-fit"/>
+              <Image src="/home/nutrition.png" alt="Delivery Icon" width={0} height={0}  className="rounded-none h-10 lg:h-24 w-fit"/>
             }
           />
         </div>
