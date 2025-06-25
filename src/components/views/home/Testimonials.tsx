@@ -35,29 +35,13 @@ const testimonials:Testimonial[]=[
   }
 ]
 
-function SampleNextArrow() {
-  return (
-    <div className="bg-red-500 w-20 h-20">
-X
-    </div>
-  );
-}
-
-function SamplePrevArrow() {
-  return (
-    <div className="bg-red-500 w-20 h-20">
-X
-    </div>
-  );
-}
-
 const Testimonials = () => {
   let sliderRef = useRef<any>(null);
   const next = () => {
-    sliderRef.slickNext();
+    sliderRef.current?.slickNext();
   };
   const previous = () => {
-    sliderRef.slickPrev();
+    sliderRef.current?.slickPrev();
   };
 
   var settings = {
@@ -107,9 +91,8 @@ const Testimonials = () => {
       </h1>
       <div className="flex items-center justify-center gap-x-2 md:gap-x-4">
           <GrFormPreviousLink onClick={previous} size={40} className="border border-gray-300 rounded-full border- flex items-center justify-center"/>
-          <Slider {...settings} ref={slider => {
-            sliderRef = slider;
-          }} className='flex flex-row justify-center items-center w-[360px] md:w-[600px] lg:w-[900px] xl:w-[1200px]'>
+          <Slider {...settings} ref={sliderRef}
+          className='flex flex-row justify-center items-center w-[360px] md:w-[600px] lg:w-[900px] xl:w-[1200px]'>
             {testimonials.map((testimonial,index) => (
               <TestimonialCard key={index} testimonial={testimonial}></TestimonialCard>
             ))}
