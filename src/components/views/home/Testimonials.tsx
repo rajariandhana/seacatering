@@ -4,7 +4,7 @@ import TestimonialCard, { Testimonial } from "./TestimonialCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { GrFormNextLink, GrFormPreviousLink,GrNext } from "react-icons/gr";
+import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 
 
 const testimonials:Testimonial[]=[
@@ -86,13 +86,13 @@ const Testimonials = () => {
   };
   return (
     <section className="flex flex-col items-center justify-center">
-      <h1 className={`text-2xl lg:text-4xl mb-12 ${domine.className}`}>
+      <h1 className={`text-xl lg:text-4xl mb-6 lg:mb-12 ${domine.className}`}>
         Message from our satisfied customers
       </h1>
       <div className="flex items-center justify-center gap-x-2 md:gap-x-4">
           <GrFormPreviousLink onClick={previous} size={40} className="border border-gray-300 rounded-full border- flex items-center justify-center"/>
           <Slider {...settings} ref={sliderRef}
-          className='flex flex-row justify-center items-center w-[360px] md:w-[600px] lg:w-[900px] xl:w-[1200px]'>
+          className='flex flex-row justify-center items-center w-[320px] md:w-[600px] lg:w-[900px] xl:w-[1200px]'>
             {testimonials.map((testimonial,index) => (
               <TestimonialCard key={index} testimonial={testimonial}></TestimonialCard>
             ))}

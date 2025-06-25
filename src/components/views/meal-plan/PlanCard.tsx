@@ -13,11 +13,11 @@ import {
 export interface Plan {
   key: string;
   name: string;
-  description: string;
+  description?: string;
   price: number;
-  calories: string;
-  suitableFor: string;
-  highlights: string[];
+  calories?: string;
+  suitableFor?: string;
+  highlights?: string[];
 }
 
 export const PlanCard = ({ plan }: { plan: Plan }) => {
@@ -64,7 +64,7 @@ export const PlanCard = ({ plan }: { plan: Plan }) => {
                 <p className="mb-1">{plan.description}</p>
                 <p className="mb-1 text-gray-500">Suitable for {plan.suitableFor}</p>
                 <div className="flex flex-wrap gap-2">
-                  {plan.highlights.map((highlight) => (
+                  {plan.highlights?.map((highlight) => (
                     <span key={highlight}
                     className="text-sm px-2 py-1 rounded-sm bg-orange-200 text-black">{highlight}</span>
                   ))}

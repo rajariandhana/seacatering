@@ -42,11 +42,11 @@ const TestimonialForm = () => {
 
   return (
     <Form
-      className="w-full flex flex-col items-center justify-center gap-y-8"
+      className="w-full flex flex-col items-center justify-center gap-y-4 lg:gap-y-8"
       onSubmit={onSubmit}
       validationErrors={errors}
     >
-      <h1 className={`${domine.className} text-2xl`}>
+      <h1 className={`${domine.className} text-xl lg:text-2xl`}>
         Leave your experience with us
       </h1>
 
@@ -56,9 +56,10 @@ const TestimonialForm = () => {
         labelPlacement="outside"
         name="name"
         placeholder="Johnny"
+        isRequired={true}
         variant="faded"
         radius="sm"
-        className="w-3/4 lg:w-1/2 rounded-md"
+        className="w-[300px] lg:w-[400px] rounded-md"
       />
 
       <Textarea
@@ -67,9 +68,10 @@ const TestimonialForm = () => {
         labelPlacement="outside"
         name="message"
         placeholder="You have inspired me to live better"
+        isRequired={true}
         variant="faded"
         radius="sm"
-        className="w-3/4 lg:w-1/2 rounded-md"
+        className="w-[300px] lg:w-[400px] rounded-md"
       />
 
       <Rating
