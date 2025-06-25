@@ -13,6 +13,7 @@ import { domine, montserrat } from "@/utils/fonts";
 import KeyFeatureCard from "@/components/views/home/KeyFeatureCard";
 
 import { Link,Button } from "@nextui-org/react";
+import Testimonials from "@/components/views/home/Testimonials";
 import TestimonialForm from "@/components/views/home/TestimonialForm";
 
 export default function Home() {
@@ -65,9 +66,8 @@ export default function Home() {
           />
         </div>
       </section>
-      <TestimonialForm>
-        
-      </TestimonialForm>
+      <Testimonials/>
+      <TestimonialForm/>
     </>
   );
 }
