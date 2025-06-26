@@ -35,8 +35,8 @@ const TestimonialForm = () => {
 
     setErrors({});
     setSubmitted(data);
-    // send to server then reset;
-    setSubmitted(null);
+    // send to server then setSubmitted(null) to reset;
+    // setSubmitted(null);
     // console.log(data);
   };
 

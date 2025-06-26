@@ -12,6 +12,10 @@ export interface SubscriptionData {
   name:string;
   phoneNumber:string;
   planKey:string;
+  mealType:string[];
+  deliveryDays:string[];
+  allergies?:string;
+  notes?:string;
 }
 
 const plans:Plan[]=[
@@ -71,6 +75,46 @@ const SubscriptionForm=()=>{
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const data: SubscriptionData = {
+      name: formData.get("name") as string,
+      phoneNumber: formData.get("phoneNumber") as string,
+      planKey: formData.get("planKey") as string,
+      mealType: formData.getAll("mealType") as string[],
+      deliveryDays: formData.getAll("deliveryDays") as string[],
+      allergies: formData.get("allergies") as string || "",
+      notes: formData.get("notes") as string || ""
+    }
+    
+    const newErrors: Record<string, string> = {};
+
+    if (!data.name) {
+      newErrors.name = "Please fill your name!";
+    }
+    if (!data.phoneNumber || !/^\d+$/.test(data.phoneNumber)) {
+      newErrors.phoneNumber = "Please enter a valid phone number!";
+    }
+    if(!data.planKey){
+      newErrors.planKey = "Please choose a plan!";
+    }
+    if(data.mealType.length===0){
+      newErrors.mealType = "Please choose at least one meal type!";
+    }
+    if(data.deliveryDays.length===0){
+      newErrors.deliveryDays = "Please choose days to deliver!";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+    setSubmitted(data);
+    // send to server then setSubmitted(null) to reset;
+    // setSubmitted(null);
+    // console.log(data);
   }
 
   useEffect(()=>{
@@ -151,7 +195,7 @@ const SubscriptionForm=()=>{
 
         <CheckboxGroup
           description=""
-          label={formLabel("Delivary days")}
+          label={formLabel("Delivery days")}
           orientation="horizontal"
           isRequired={true}
           color="primary"
@@ -163,6 +207,8 @@ const SubscriptionForm=()=>{
           <ChipCheckbox value="wednesday">Wednesday</ChipCheckbox>
           <ChipCheckbox value="thursday">Thursday</ChipCheckbox>
           <ChipCheckbox value="friday">Friday</ChipCheckbox>
+          <ChipCheckbox value="saturday">Saturday</ChipCheckbox>
+          <ChipCheckbox value="sunday">Sunday</ChipCheckbox>
         </CheckboxGroup>
         {deliveryDays.length>0 && 
           <span className="text-sm text-gray-500 -mt-2">{deliveryDays.length}x delivery(ies) a week</span>
@@ -208,11 +254,11 @@ const SubscriptionForm=()=>{
                 <span className="text-xs text-right text-gray-500">({mealType.length*deliveryDays.length}x meals a week)</span>
               </div>
             </div>
+          </>
+      }
             <Button type="submit" color="primary" radius="sm" className="w-full text-lg" variant="ghost">
               Subscribe
             </Button>
-          </>
-      }
     </Form>
   )
 }
