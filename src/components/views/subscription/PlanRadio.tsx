@@ -19,7 +19,7 @@ const PlanRadio=({ plan }: { plan: Plan })=>{
         </span>
       </div>
       <p className="text-gray-500 text-sm md:text-medium">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad suscipit molestias esse consequuntur soluta quam sunt amet nam cum praesentium.
+        {plan.description}
       </p>
     </Radio>
   )
