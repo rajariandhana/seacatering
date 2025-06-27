@@ -10,6 +10,7 @@ import { IoMoonOutline } from "react-icons/io5";
 import { ISubscription } from "@/types/Subscription";
 import subscriptionServices from "@/services/subscription.service";
 import { useRouter } from "next/router";
+import planServices from "@/services/plan.service";
 
 export interface SubscriptionData {
   name:string;
@@ -20,27 +21,6 @@ export interface SubscriptionData {
   allergies?:string;
   notes?:string;
 }
-
-const plans:Plan[]=[
-  {
-    key: 'diet',
-    name: 'Diet',
-    price: 30000,
-    description: 'A light and balanced option designed to support weight management and healthy eating habits. Ideal for those watching their calorie intake without compromising on taste.'
-  },
-  {
-    key: 'protein',
-    name: 'Protein',
-    price: 40000,
-    description: 'Perfect for active individuals and fitness enthusiasts, this plan is packed with high-quality protein sources to help build and maintain muscle.'
-  },
-  {
-    key: 'royal',
-    name: 'Royal',
-    price: 60000,
-    description: 'Our premium offering featuring gourmet-style meals made with top-tier ingredients. Great for those who want the healthiest, tastiest, and most luxurious meal experience.'
-  }
-];
 
 export const CheckIcon = (props:any) => {
   return (
@@ -75,6 +55,24 @@ const SubscriptionForm=()=>{
   const [mealType, setMealType]=useState<string[]>([]);
   const [deliveryDays, setDeliveryDays]=useState<string[]>([]);
   const [totalPrice, setTotalPrice]=useState<number>(0);
+
+  const [plans, setPlans]=useState<Plan[]>([]);
+  // const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const response = await planServices.findAll();
+        setPlans(response.data);
+      } catch (error) {
+        console.error("Failed to fetch plans:", error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, []);
 
   const router = useRouter();
 
@@ -139,7 +137,7 @@ const SubscriptionForm=()=>{
       setTotalPrice(planPrice * mealType.length * deliveryDays.length * 4.3);
     }
     // onOpen();
-  },[planKey,mealType.length,deliveryDays.length]);
+  },[planKey, mealType.length, deliveryDays.length, plans]);
 
   return(
     <>
@@ -176,12 +174,13 @@ const SubscriptionForm=()=>{
             description="Used for payment and order updates"
           />
         </div>
-        <div>
+
+        {/* <div>
           {planKey && <span>plankey: {planKey}</span>}
           {mealType && <span>mealType: {JSON.stringify(mealType)}</span>}
           {deliveryDays && <span>deliveryDays: {JSON.stringify(deliveryDays)}</span>}
           
-        </div>
+        </div> */}
         <div className="w-full flex flex-col gap-y-4">
           <h2 className="text-xl font-semibold -mb-3">Order information</h2>
           <RadioGroup
@@ -287,3 +286,24 @@ const SubscriptionForm=()=>{
   )
 }
 export default SubscriptionForm;
+
+// const plans:Plan[]=[
+//   {
+//     key: 'diet',
+//     name: 'Diet',
+//     price: 30000,
+//     description: 'A light and balanced option designed to support weight management and healthy eating habits. Ideal for those watching their calorie intake without compromising on taste.'
+//   },
+//   {
+//     key: 'protein',
+//     name: 'Protein',
+//     price: 40000,
+//     description: 'Perfect for active individuals and fitness enthusiasts, this plan is packed with high-quality protein sources to help build and maintain muscle.'
+//   },
+//   {
+//     key: 'royal',
+//     name: 'Royal',
+//     price: 60000,
+//     description: 'Our premium offering featuring gourmet-style meals made with top-tier ingredients. Great for those who want the healthiest, tastiest, and most luxurious meal experience.'
+//   }
+// ];

@@ -16,49 +16,6 @@ import PlanCard, { Plan } from "@/components/views/meal-plan/PlanCard";
 import { domine } from "@/utils/fonts";
 import { useEffect, useState } from "react";
 import planServices from "@/services/plan.service";
-const tempPlans: Plan[] = [
-  {
-    key: 'fit-and-fresh',
-    name: 'Fit and Fresh',
-    description:
-      'Perfect for busy professionals, this plan includes 2 balanced meals per day with a mix of lean proteins, whole grains, and fresh vegetables. Great for maintaining energy throughout the day.',
-    price: 40000,
-    calories:'700 - 800',
-    suitableFor:'Office workers, students',
-    highlights:['balanced nutrition', 'low sugar', 'moderate carbs'],
-  },
-  {
-    key: 'weight-loss',
-    name: 'Weight Loss',
-    description:
-      'Designed for those looking to shed a few kilos, this low-calorie plan focuses on portion control, high fiber, and nutrient-dense meals that keep you full without the extra calories.',
-    price: 50000,
-    calories:'350 - 400',
-    suitableFor:'Dieters, health-conscious individuals',
-    highlights:['calorie-controlled', 'low-fat', 'high-fiber'],
-  },
-  {
-    key: 'muscle-gain',
-    name: 'Muscle Gain',
-    description:
-      'Packed with high protein options, this plan supports your fitness goals and recovery. Ideal for gym-goers and athletes looking to build lean muscle mass.',
-    price: 60000,
-    calories:'650 - 800',
-    suitableFor:'Athletes, bodybuilders',
-    highlights:['high-protein', 'energy-dense', 'performance-focused'],
-  },
-  {
-    key: 'vegetarian',
-    name: 'Vegetarian',
-    description:
-      'A fully plant-based plan featuring hearty grains, legumes, and vibrant vegetables. Perfect for vegetarians or anyone wanting to eat cleaner without sacrificing flavor.',
-    price: 45000,
-    calories:'450 - 500',
-    suitableFor:'Vegetarians, clean eaters',
-    highlights:['100% plant-based', 'dairy-free', 'antioxidant-rich'],
-  },
-];
-
 
 export default function MealPlansPage() {
   const [plans, setPlans]=useState<Plan[]>([]);
@@ -96,3 +53,47 @@ export default function MealPlansPage() {
     </>
   );
 }
+
+
+// const tempPlans: Plan[] = [
+//   {
+//     key: 'fit-and-fresh',
+//     name: 'Fit and Fresh',
+//     description:
+//       'Perfect for busy professionals, this plan includes 2 balanced meals per day with a mix of lean proteins, whole grains, and fresh vegetables. Great for maintaining energy throughout the day.',
+//     price: 40000,
+//     calories:'700 - 800',
+//     suitableFor:'Office workers, students',
+//     highlights:['balanced nutrition', 'low sugar', 'moderate carbs'],
+//   },
+//   {
+//     key: 'weight-loss',
+//     name: 'Weight Loss',
+//     description:
+//       'Designed for those looking to shed a few kilos, this low-calorie plan focuses on portion control, high fiber, and nutrient-dense meals that keep you full without the extra calories.',
+//     price: 50000,
+//     calories:'350 - 400',
+//     suitableFor:'Dieters, health-conscious individuals',
+//     highlights:['calorie-controlled', 'low-fat', 'high-fiber'],
+//   },
+//   {
+//     key: 'muscle-gain',
+//     name: 'Muscle Gain',
+//     description:
+//       'Packed with high protein options, this plan supports your fitness goals and recovery. Ideal for gym-goers and athletes looking to build lean muscle mass.',
+//     price: 60000,
+//     calories:'650 - 800',
+//     suitableFor:'Athletes, bodybuilders',
+//     highlights:['high-protein', 'energy-dense', 'performance-focused'],
+//   },
+//   {
+//     key: 'vegetarian',
+//     name: 'Vegetarian',
+//     description:
+//       'A fully plant-based plan featuring hearty grains, legumes, and vibrant vegetables. Perfect for vegetarians or anyone wanting to eat cleaner without sacrificing flavor.',
+//     price: 45000,
+//     calories:'450 - 500',
+//     suitableFor:'Vegetarians, clean eaters',
+//     highlights:['100% plant-based', 'dairy-free', 'antioxidant-rich'],
+//   },
+// ];
