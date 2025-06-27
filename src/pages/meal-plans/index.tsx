@@ -62,17 +62,17 @@ const tempPlans: Plan[] = [
 
 export default function MealPlansPage() {
   const [plans, setPlans]=useState<Plan[]>([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPlans = async () => {
       try {
         const response = await planServices.findAll();
-        setPlans(response.data); // ✅ access `.data` from Axios response
+        setPlans(response.data);
       } catch (error) {
         console.error("Failed to fetch plans:", error);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     };
 

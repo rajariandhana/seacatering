@@ -3,17 +3,22 @@ import { Form, Input, Textarea, Button } from "@nextui-org/react";
 import { Rating } from "@mui/material";
 import { useState } from "react";
 import { Testimonial } from "./TestimonialCard";
+import { ITestimonial } from "@/types/Testimonial";
+import testimonialServices from "@/services/testimonial.service";
+import { useRouter } from "next/router";
 
 const TestimonialForm = () => {
   const [submitted, setSubmitted] = useState<Testimonial | null>(null);
   const [errors, setErrors] = useState({});
   const [star, setStar] = useState<number>(4);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+  
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const data: Testimonial = {
+    const data: ITestimonial = {
       name: formData.get("name") as string,
       message: formData.get("message") as string,
       star: star,
@@ -35,9 +40,16 @@ const TestimonialForm = () => {
 
     setErrors({});
     setSubmitted(data);
-    // send to server then setSubmitted(null) to reset;
-    // setSubmitted(null);
-    // console.log(data);
+    try {
+      const result = await testimonialServices.create(data);
+      if(result.status!==200){
+        setErrors({ submit: result.data.message });
+        return;
+      }
+      router.push("/testimonial/success");
+    } catch (error) {
+      console.error("Subscription failed:", error);
+    }
   };
 
   return (
