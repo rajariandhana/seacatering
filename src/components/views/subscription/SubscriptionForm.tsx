@@ -1,4 +1,4 @@
-import { Button, Checkbox, CheckboxGroup, Form, Input, Radio, RadioGroup, Textarea } from "@nextui-org/react"
+import { Button, Checkbox, CheckboxGroup, Form, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Radio, RadioGroup, Textarea, useDisclosure } from "@nextui-org/react"
 import { useEffect, useState } from "react";
 import { FaPhoneAlt, FaRegMoon, FaUserAlt } from "react-icons/fa";
 import { Plan } from "../meal-plan/PlanCard";
@@ -7,6 +7,9 @@ import { GiDeathSkull } from "react-icons/gi";
 import { ChipCheckbox } from "./ChipCheckbox";
 import { FiSunrise, FiSun } from "react-icons/fi";
 import { IoMoonOutline } from "react-icons/io5";
+import { ISubscription } from "@/types/Subscription";
+import subscriptionServices from "@/services/subscription.service";
+import { useRouter } from "next/router";
 
 export interface SubscriptionData {
   name:string;
@@ -73,19 +76,22 @@ const SubscriptionForm=()=>{
   const [deliveryDays, setDeliveryDays]=useState<string[]>([]);
   const [totalPrice, setTotalPrice]=useState<number>(0);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const data: SubscriptionData = {
+    const data: ISubscription = {
       name: formData.get("name") as string,
       phoneNumber: formData.get("phoneNumber") as string,
-      planKey: formData.get("planKey") as string,
-      mealType: formData.getAll("mealType") as string[],
-      deliveryDays: formData.getAll("deliveryDays") as string[],
+      planKey: planKey as string,
+      mealType: mealType as string[],
+      deliveryDays: deliveryDays as string[],
       allergies: formData.get("allergies") as string || "",
       notes: formData.get("notes") as string || ""
     }
+    // console.log(data);
     
     const newErrors: Record<string, string> = {};
 
@@ -106,15 +112,24 @@ const SubscriptionForm=()=>{
     }
 
     if (Object.keys(newErrors).length > 0) {
+      console.log("setErrors",newErrors);
       setErrors(newErrors);
       return;
     }
+    // console.log("FE VALIDATED");
 
     setErrors({});
     setSubmitted(data);
-    // send to server then setSubmitted(null) to reset;
-    // setSubmitted(null);
-    // console.log(data);
+    try {
+      const result = await subscriptionServices.subscribe(data);
+      if(result.status!==200){
+        setErrors({ submit: result.data.message });
+        return;
+      }
+      router.push("/subscription/success");
+    } catch (error) {
+      console.error("Subscription failed:", error);
+    }
   }
 
   useEffect(()=>{
@@ -123,143 +138,152 @@ const SubscriptionForm=()=>{
     if(planPrice){
       setTotalPrice(planPrice * mealType.length * deliveryDays.length * 4.3);
     }
+    // onOpen();
   },[planKey,mealType.length,deliveryDays.length]);
 
   return(
-    <Form
-      className="w-[360px] md:w-[480px] flex flex-col justify-center gap-y-8"
-      onSubmit={onSubmit}
-      validationErrors={errors}>
-      <div className="w-full flex flex-col gap-y-4">
-        <h2 className="text-xl font-semibold  -mb-2">Customer information</h2>
-        <Input
-          type="text"
-          label={formLabel("Your name")}
-          labelPlacement="outside"
-          name="name"
-          placeholder="Johnny"
-          isRequired={true}
-          variant="faded"
-          radius="sm"
-          className="rounded-md w-full"
-          startContent={<FaUserAlt />}
-        />
+    <>
+      <Form
+        className="w-[360px] md:w-[480px] flex flex-col justify-center gap-y-8"
+        onSubmit={onSubmit}
+        validationErrors={errors}>
+        <div className="w-full flex flex-col gap-y-4">
+          <h2 className="text-xl font-semibold  -mb-2">Customer information</h2>
+          <Input
+            type="text"
+            label={formLabel("Your name")}
+            labelPlacement="outside"
+            name="name"
+            placeholder="Johnny"
+            isRequired={true}
+            variant="faded"
+            radius="sm"
+            className="rounded-md w-full"
+            startContent={<FaUserAlt />}
+          />
 
-        <Input
-          type="numeric"
-          label={formLabel("Your phone number")}
-          labelPlacement="outside"
-          name="phoneNumber"
-          placeholder="08123456789"
-          isRequired={true}
-          variant="faded"
-          radius="sm"
-          className="rounded-md w-3/4"
-          startContent={<FaPhoneAlt />}
-          description="Used for payment and order updates"
-        />
-      </div>
-      <div className="w-full flex flex-col gap-y-4">
-        <h2 className="text-xl font-semibold -mb-3">Order information</h2>
-        <RadioGroup
-          description=""
-          label={formLabel("Choose your meal plan")}
-          orientation="vertical"
-          isRequired={true}
-          color="primary"
-          onValueChange={setPlanKey}>
-          {plans.map((plan) => (
-            <PlanRadio key={plan.key} plan={plan}></PlanRadio>
-          ))}
-        </RadioGroup>
+          <Input
+            type="tel"
+            label={formLabel("Your phone number")}
+            labelPlacement="outside"
+            name="phoneNumber"
+            placeholder="08123456789"
+            isRequired={true}
+            variant="faded"
+            radius="sm"
+            className="rounded-md w-3/4"
+            startContent={<FaPhoneAlt />}
+            description="Used for payment and order updates"
+          />
+        </div>
+        <div>
+          {planKey && <span>plankey: {planKey}</span>}
+          {mealType && <span>mealType: {JSON.stringify(mealType)}</span>}
+          {deliveryDays && <span>deliveryDays: {JSON.stringify(deliveryDays)}</span>}
+          
+        </div>
+        <div className="w-full flex flex-col gap-y-4">
+          <h2 className="text-xl font-semibold -mb-3">Order information</h2>
+          <RadioGroup
+            description=""
+            label={formLabel("Choose your meal plan")}
+            orientation="vertical"
+            isRequired={true}
+            color="primary"
+            onValueChange={setPlanKey} value={planKey}>
+            {plans.map((plan) => (
+              <PlanRadio key={plan.key} plan={plan}></PlanRadio>
+            ))}
+          </RadioGroup>
 
-        <CheckboxGroup
-          description=""
-          label={formLabel("Meal type")}
-          orientation="horizontal"
-          isRequired={true}
-          color="primary"
-          value={mealType}
-          onChange={setMealType}
-        >
-          <ChipCheckbox value="breakfast"><FiSunrise /> Breakfast</ChipCheckbox>
-          <ChipCheckbox value="lunch"><FiSun /> Lunch</ChipCheckbox>
-          <ChipCheckbox value="dinner"><IoMoonOutline /> Dinner</ChipCheckbox>
-        </CheckboxGroup>
-        {mealType.length>0 && 
-          <span className="text-sm text-gray-500 -mt-2">{mealType.length}x menu(s) a day</span>
-        }
-        {mealType.length==0 && 
-          <span className="-mt-2 h-5"></span>
-        }
+          <CheckboxGroup
+            description=""
+            label={formLabel("Meal type")}
+            orientation="horizontal"
+            isRequired={true}
+            color="primary"
+            value={mealType}
+            onChange={setMealType}
+          >
+            <ChipCheckbox value="breakfast"><FiSunrise /> Breakfast</ChipCheckbox>
+            <ChipCheckbox value="lunch"><FiSun /> Lunch</ChipCheckbox>
+            <ChipCheckbox value="dinner"><IoMoonOutline /> Dinner</ChipCheckbox>
+          </CheckboxGroup>
+          {mealType.length>0 && 
+            <span className="text-sm text-gray-500 -mt-2">{mealType.length}x menu(s) a day</span>
+          }
+          {mealType.length==0 && 
+            <span className="-mt-2 h-5"></span>
+          }
 
-        <CheckboxGroup
-          description=""
-          label={formLabel("Delivery days")}
-          orientation="horizontal"
-          isRequired={true}
-          color="primary"
-          value={deliveryDays}
-          onChange={setDeliveryDays}
-        >
-          <ChipCheckbox value="monday">Monday</ChipCheckbox>
-          <ChipCheckbox value="tuesday">Tuesday</ChipCheckbox>
-          <ChipCheckbox value="wednesday">Wednesday</ChipCheckbox>
-          <ChipCheckbox value="thursday">Thursday</ChipCheckbox>
-          <ChipCheckbox value="friday">Friday</ChipCheckbox>
-          <ChipCheckbox value="saturday">Saturday</ChipCheckbox>
-          <ChipCheckbox value="sunday">Sunday</ChipCheckbox>
-        </CheckboxGroup>
-        {deliveryDays.length>0 && 
-          <span className="text-sm text-gray-500 -mt-2">{deliveryDays.length}x delivery(ies) a week</span>
-        }
-        {deliveryDays.length==0 && 
-          <span className="-mt-2 h-5"></span>
-        }
+          <CheckboxGroup
+            description=""
+            label={formLabel("Delivery days")}
+            orientation="horizontal"
+            isRequired={true}
+            color="primary"
+            value={deliveryDays}
+            onChange={setDeliveryDays}
+          >
+            <ChipCheckbox value="monday">Monday</ChipCheckbox>
+            <ChipCheckbox value="tuesday">Tuesday</ChipCheckbox>
+            <ChipCheckbox value="wednesday">Wednesday</ChipCheckbox>
+            <ChipCheckbox value="thursday">Thursday</ChipCheckbox>
+            <ChipCheckbox value="friday">Friday</ChipCheckbox>
+            <ChipCheckbox value="saturday">Saturday</ChipCheckbox>
+            <ChipCheckbox value="sunday">Sunday</ChipCheckbox>
+          </CheckboxGroup>
+          {deliveryDays.length>0 && 
+            <span className="text-sm text-gray-500 -mt-2">{deliveryDays.length}x delivery(ies) a week</span>
+          }
+          {deliveryDays.length==0 && 
+            <span className="-mt-2 h-5"></span>
+          }
 
-      </div>
-      <div className="w-full flex flex-col gap-y-4">
-        <h2 className="text-xl font-semibold -mb-3">Other details</h2>
-        <Input
-          type="text"
-          label="Allergies"
-          labelPlacement="outside"
-          name="allergies"
-          placeholder="Peanuts..."
-          variant="faded"
-          radius="sm"
-          className="rounded-md w-full"
-          startContent={<GiDeathSkull />}
-        />
-        <Textarea
-          type="textarea"
-          label="Any notes"
-          labelPlacement="outside"
-          name="notes"
-          placeholder="Not spicy please"
-          variant="faded"
-          radius="sm"
-          className="rounded-md w-full"
-        />
-      </div>
-      {planKey && mealType.length>0 && deliveryDays.length>0 && 
-          <>
-            <div className="w-full flex flex-col gap-y-4">
-              <h2 className="text-xl font-semibold -mb-3">Confirmation</h2>
-              <div className="flex flex-col justify-end">
-                <div className="flex justify-between w-full text-xl">
-                  <span>Total: </span>
-                  <span>Rp {(totalPrice).toLocaleString("id-ID")}</span>
+        </div>
+        <div className="w-full flex flex-col gap-y-4">
+          <h2 className="text-xl font-semibold -mb-3">Other details</h2>
+          <Input
+            type="text"
+            label="Allergies"
+            labelPlacement="outside"
+            name="allergies"
+            placeholder="Peanuts..."
+            variant="faded"
+            radius="sm"
+            className="rounded-md w-full"
+            startContent={<GiDeathSkull />}
+          />
+          <Textarea
+            type="textarea"
+            label="Any notes"
+            labelPlacement="outside"
+            name="notes"
+            placeholder="Not spicy please"
+            variant="faded"
+            radius="sm"
+            className="rounded-md w-full"
+          />
+        </div>
+        {planKey && mealType.length>0 && deliveryDays.length>0 && 
+            <>
+              <div className="w-full flex flex-col gap-y-4">
+                <h2 className="text-xl font-semibold -mb-3">Confirmation</h2>
+                <div className="flex flex-col justify-end">
+                  <div className="flex justify-between w-full text-xl">
+                    <span>Total: </span>
+                    <span>Rp {(totalPrice).toLocaleString("id-ID")}</span>
+                  </div>
+                  <span className="text-xs text-right text-gray-500">({mealType.length*deliveryDays.length}x meals a week)</span>
                 </div>
-                <span className="text-xs text-right text-gray-500">({mealType.length*deliveryDays.length}x meals a week)</span>
               </div>
-            </div>
-          </>
-      }
-            <Button type="submit" color="primary" radius="sm" className="w-full text-lg" variant="ghost">
-              Subscribe
-            </Button>
-    </Form>
+            </>
+        }
+        <Button type="submit" color="primary" radius="sm" className="w-full text-lg" variant="ghost">
+          Subscribe
+        </Button>
+      </Form>
+    </>
   )
 }
 export default SubscriptionForm;
