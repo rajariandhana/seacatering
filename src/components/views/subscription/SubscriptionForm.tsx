@@ -121,7 +121,7 @@ const SubscriptionForm=()=>{
     setErrors({});
     setSubmitted(data);
     try {
-      const result = await subscriptionServices.subscribe(data);
+      const result = await subscriptionServices.create(data);
       if(result.status!==200){
         setErrors({ submit: result.data.message });
         return;

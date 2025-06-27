@@ -2,7 +2,7 @@ import instance from "@/libs/axios/instance";
 import { ISubscription } from "@/types/Subscription";
 
 const subscriptionServices = {
-    subscribe: (payload:ISubscription) =>
-        instance.post(`/subscription/subscribe`, payload),
+    create: (payload:ISubscription) =>
+        instance.post(`/subscription/create`, payload),
 };
 export default subscriptionServices;

@@ -14,7 +14,9 @@ klik(card) -> modal
 import {Card, CardHeader, CardBody, Image} from "@nextui-org/react";
 import PlanCard, { Plan } from "@/components/views/meal-plan/PlanCard";
 import { domine } from "@/utils/fonts";
-const plans: Plan[] = [
+import { useEffect, useState } from "react";
+import planServices from "@/services/plan.service";
+const tempPlans: Plan[] = [
   {
     key: 'fit-and-fresh',
     name: 'Fit and Fresh',
@@ -59,13 +61,33 @@ const plans: Plan[] = [
 
 
 export default function MealPlansPage() {
+  const [plans, setPlans]=useState<Plan[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const response = await planServices.findAll();
+        setPlans(response.data); // ✅ access `.data` from Axios response
+      } catch (error) {
+        console.error("Failed to fetch plans:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
+  // if (loading) return <p>Loading plans...</p>;
+
   return (
     <>
     <section className="flex flex-col items-center justify-center">
         <h1 className={`text-2xl lg:text-4xl mb-12 ${domine.className}`}>
           Find the right meal plan for you
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {plans.map((plan) => (
             <PlanCard key={plan.key} plan={plan}></PlanCard>
           ))}
