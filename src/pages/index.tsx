@@ -15,10 +15,21 @@ import KeyFeatureCard from "@/components/views/home/KeyFeatureCard";
 import { Link,Button } from "@nextui-org/react";
 import Testimonials from "@/components/views/home/Testimonials";
 import TestimonialForm from "@/components/views/home/TestimonialForm";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  // const [data,setData]=useState();
+  // useEffect(()=>{
+  //   fetch("http://seacatering-backend.vercel.app/api/dummy")
+  //     .then(res => res.json())        // Parse JSON from response
+  //     .then(json => setData(json))    // Set the parsed data
+  //     .catch(err => console.error(err));
+  // },[])
+  
   return (
     <>
+      {/* @ts-ignore */}
+      {/* {data && <span>{data.message}</span>} */}
       {/* HERO */}
       <section className="grid grid-cols-1 lg:grid-cols-2 items-center gap-4 lg:mt-32 px-6">
         <div className="flex flex-col gap-y-2">

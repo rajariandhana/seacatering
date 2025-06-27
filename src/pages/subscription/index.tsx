@@ -1,9 +1,9 @@
+import SubscriptionForm from "@/components/views/subscription/SubscriptionForm";
+
 export default function SubscriptionPage() {
   return (
     <>
-      <section>
-        SUBSCRIPTION
-      </section>      
+      <SubscriptionForm></SubscriptionForm>
     </>
   );
 }
