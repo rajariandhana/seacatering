@@ -1,27 +1,19 @@
-// import DashboardLayout from "@/components/layouts/DashboardLayout";
-// import Dashboard from "@/components/views/Member/Dashboard";
+import DashboardLayout from "@/components/DashboardLayout";
+import useGetProfile from "@/utils/useGetProfile";
 
-import { Button } from "@nextui-org/react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const DashboardMemberPage = () => {
   const router = useRouter();
-  const handleLogout = async () => {
-    const result = await signOut({ redirect: false });
-    router.push("/");
-  };
-
+  const session = useSession();
+  const {dataProfile} = useGetProfile();
     return (
-        // <DashboardLayout title="Dashboard" description="Dashboard Member" type="member">
-        //     <Dashboard/>
-        // </DashboardLayout>
-        <div>
-          DASHBOARD MEMBERRRRR
-          <Button onClick={() =>handleLogout()}>
-            Logout
-          </Button>
-        </div>
+        <DashboardLayout title="Dashboard" type="member">
+          {dataProfile && (
+            <>Hello, {dataProfile.fullName}</>
+          )}
+        </DashboardLayout>
     )
 }
 

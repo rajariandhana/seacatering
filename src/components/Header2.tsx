@@ -92,8 +92,8 @@ export default function Header2() {
                     <Avatar showFallback isBordered as="button" name={dataProfile.fullName} src=""/>
                   </DropdownTrigger>
                   <DropdownMenu variant="flat" color="default">
-                    <DropdownItem key="dashboard">
-                      <Link href="/member/dashboard" color="foreground">Dashboard</Link>
+                    <DropdownItem key="dashboard" onClick={()=>router.push(`/${dataProfile.role}/dashboard`)}>
+                        Dashboard
                     </DropdownItem>
                     <DropdownItem key="logout" color="danger" onClick={()=>handleLogout()}>
                       <span className="text-danger">Logout</span>
@@ -139,8 +139,8 @@ export default function Header2() {
                       </User>
                     </DropdownTrigger>
                     <DropdownMenu variant="flat" color="default">
-                      <DropdownItem key="dashboard">
-                        <Link href="/member/dashboard" color="foreground">Dashboard</Link>
+                      <DropdownItem key="dashboard" onClick={()=>router.push(`/${dataProfile.role}/dashboard`)}>
+                        Dashboard
                       </DropdownItem>
                       <DropdownItem key="logout" color="danger" onClick={()=>handleLogout()}>
                         <span className="text-danger">Logout</span>
