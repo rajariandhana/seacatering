@@ -1,13 +1,11 @@
 import AuthLayout from "@/components/AuthLayout";
-import Image from "next/image";
-import { Card,CardBody,Input,Button, Spinner } from "@nextui-org/react";
+import { Input,Button, Spinner } from "@nextui-org/react";
 import Link from "next/link";
-import useRegister from "./useRegister";
+import useRegister from "../../../utils/useRegister";
 import { FaEye,FaEyeSlash } from "react-icons/fa6";
 import { Controller } from "react-hook-form";
 import { cn } from "@/utils/cn";
 import Logo from "@/components/Logo";
-// import Register from "@/components/views/Auth/Register";
 
 const RegisterPage = () => {
   const {visiblePassword, handleVisiblePassword, control, handleSubmit, handleRegister, isPendingRegister, errors} = useRegister();
