@@ -8,3 +8,5 @@
 - navbar to dashboard, login 
 - admin account also put in pdf!
 - mealplans select go to sub page
+- README
+- useLoading

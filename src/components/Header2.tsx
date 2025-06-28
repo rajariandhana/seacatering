@@ -128,7 +128,7 @@ export default function Header2() {
               </Link>
             </NavbarMenuItem>
           ))}
-          <div className="fixed bottom-12 flex flex-col w-full pr-12 gap-y-4">
+          <div className="fixed bottom-48 flex flex-col w-full pr-12 gap-y-4">
             {session.status === 'authenticated' && dataProfile? (
               <>
                 <NavbarMenuItem key="profile" className="mt-24">
