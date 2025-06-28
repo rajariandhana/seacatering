@@ -27,7 +27,7 @@ const useLogin = () => {
     });
 
     const loginService = async (payload:ILogin) => {
-      console.log("loginService");
+    //   console.log("loginService");
         const result = await signIn("credentials",{
             ...payload,
             redirect: false,
