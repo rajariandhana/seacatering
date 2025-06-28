@@ -16,6 +16,7 @@ import { Link,Button } from "@nextui-org/react";
 import Testimonials from "@/components/views/home/Testimonials";
 import TestimonialForm from "@/components/views/home/TestimonialForm";
 import { useEffect, useState } from "react";
+import Layout from "@/components/Layout";
 
 export default function Home() {
   // const [data,setData]=useState();
@@ -27,7 +28,7 @@ export default function Home() {
   // },[])
   
   return (
-    <>
+    <Layout>
       {/* @ts-ignore */}
       {/* {data && <span>{data.message}</span>} */}
       {/* HERO */}
@@ -79,6 +80,6 @@ export default function Home() {
       </section>
       <Testimonials/>
       <TestimonialForm/>
-    </>
+    </Layout>
   );
 }

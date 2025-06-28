@@ -16,6 +16,7 @@ import PlanCard, { Plan } from "@/components/views/meal-plan/PlanCard";
 import { domine } from "@/utils/fonts";
 import { useEffect, useState } from "react";
 import planServices from "@/services/plan.service";
+import Layout from "@/components/Layout";
 
 export default function MealPlansPage() {
   const [plans, setPlans]=useState<Plan[]>([]);
@@ -39,8 +40,8 @@ export default function MealPlansPage() {
   // if (loading) return <p>Loading plans...</p>;
 
   return (
-    <>
-    <section className="flex flex-col items-center justify-center">
+    <Layout>
+      <section className="flex flex-col items-center justify-center">
         <h1 className={`text-2xl lg:text-4xl mb-12 ${domine.className}`}>
           Find the right meal plan for you
         </h1>
@@ -50,7 +51,7 @@ export default function MealPlansPage() {
           ))}
         </div>      
       </section>
-    </>
+    </Layout>
   );
 }
 
