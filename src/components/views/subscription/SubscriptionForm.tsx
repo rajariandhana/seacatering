@@ -13,7 +13,6 @@ import { useRouter } from "next/router";
 import planServices from "@/services/plan.service";
 
 export interface SubscriptionData {
-  name:string;
   phoneNumber:string;
   planKey:string;
   mealType:string[];
@@ -81,7 +80,6 @@ const SubscriptionForm=()=>{
 
     const formData = new FormData(e.currentTarget);
     const data: ISubscription = {
-      name: formData.get("name") as string,
       phoneNumber: formData.get("phoneNumber") as string,
       planKey: planKey as string,
       mealType: mealType as string[],
@@ -93,9 +91,6 @@ const SubscriptionForm=()=>{
     
     const newErrors: Record<string, string> = {};
 
-    if (!data.name) {
-      newErrors.name = "Please fill your name!";
-    }
     if (!data.phoneNumber || !/^\d+$/.test(data.phoneNumber)) {
       newErrors.phoneNumber = "Please enter a valid phone number!";
     }
@@ -124,7 +119,7 @@ const SubscriptionForm=()=>{
         setErrors({ submit: result.data.message });
         return;
       }
-      router.push("/subscription/success");
+      router.push("/member/subscription/success");
     } catch (error) {
       console.error("Subscription failed:", error);
     }
@@ -147,19 +142,6 @@ const SubscriptionForm=()=>{
         validationErrors={errors}>
         <div className="w-full flex flex-col gap-y-4">
           <h2 className="text-xl font-semibold  -mb-2">Customer information</h2>
-          <Input
-            type="text"
-            label={formLabel("Your name")}
-            labelPlacement="outside"
-            name="name"
-            placeholder="Johnny"
-            isRequired={true}
-            variant="faded"
-            radius="sm"
-            className="rounded-md w-full"
-            startContent={<FaUserAlt />}
-          />
-
           <Input
             type="tel"
             label={formLabel("Your phone number")}

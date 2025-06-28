@@ -1,5 +1,4 @@
 interface ISubscription {
-  name:string;
   phoneNumber:string;
   planKey:string;
   mealType:string[];
