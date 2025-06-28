@@ -1,2 +1,12 @@
 - generic success page
 - loading ui
+- unique email
+- page title
+- CONTACT US PAGE LUPA GOBLOG
+- CSRF
+- authorization
+- navbar to dashboard, login 
+- admin account also put in pdf!
+- mealplans select go to sub page
+- README
+- useLoading
