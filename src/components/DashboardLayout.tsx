@@ -22,6 +22,7 @@ const DashboardLayout = (props: PropTypes) => {
         <DashboardLayoutSidebar
           sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_MEMBER}
           isOpen={open}
+          role={type}
         />
         <div className="h-screen w-full overflow-y-auto p-8">
           <Navbar

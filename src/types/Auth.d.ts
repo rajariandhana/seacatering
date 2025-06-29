@@ -1,5 +1,6 @@
 import { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import { ISubscription } from "./Subscription";
 
 interface IRegister {
     fullName: string;
@@ -16,6 +17,7 @@ interface ILogin {
 interface UserExtended extends User {
     accessToken?: string;
     role?: string;
+    subscriptionId?:ISubscription|null;
 }
 
 interface SessionExtended extends Session{

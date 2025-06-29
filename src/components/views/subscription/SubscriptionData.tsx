@@ -2,7 +2,6 @@ import { ReactElement, useState } from "react";
 import subscriptionServices from "@/services/subscription.service";
 import { IPlan } from "@/types/Plan";
 import { ISubscription } from "@/types/Subscription";
-import { calculateTotalPrice } from "@/types/SubscriptionConstants";
 import {
   Card,
   CardHeader,
@@ -14,12 +13,10 @@ import {
   Divider,
   Tooltip
 } from "@nextui-org/react";
-import { GiDeathSkull } from "react-icons/gi";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { FiSunrise, FiSun } from "react-icons/fi";
 import { IoMoonOutline } from "react-icons/io5";
 import { ChipCheckbox } from "./ChipCheckbox";
-import { Plan } from "../meal-plan/PlanCard";
 
 const formLabel = (text:string)=>{
   return (
@@ -89,12 +86,8 @@ const SubscriptionData = ({ subscription, plan, onUnsubscribe }: { subscription:
             <IoMdInformationCircleOutline size={24}/>
           </div>
         </Tooltip>
-        {/* <Tooltip content={""} showArrow={true}>
-          <h1 className="text-2xl font-semibold">{plan?.name} Plan</h1>
-          <IoMdInformationCircleOutline />
-        </Tooltip> */}
         {isPaused ? (
-          <Chip color="danger" variant="flat">Paused</Chip>
+          <Chip color="warning" variant="flat">Paused</Chip>
         ) : (
           <Chip color="success" variant="flat">Active</Chip>
         )}

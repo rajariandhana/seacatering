@@ -63,9 +63,7 @@ export default function Header2() {
             className="md:hidden"
           />
           <NavbarBrand>
-            <Link href={"/"} className="flex gap-x-2 text-black">
-              <Logo height={20}></Logo>
-            </Link>
+            <Logo height={20}></Logo>
           </NavbarBrand>
         </NavbarContent>
 
@@ -92,7 +90,7 @@ export default function Header2() {
                     <Avatar showFallback isBordered as="button" name={dataProfile.fullName} src=""/>
                   </DropdownTrigger>
                   <DropdownMenu variant="flat" color="default">
-                    <DropdownItem key="dashboard" onClick={()=>router.push(`/${dataProfile.role}/dashboard`)}>
+                    <DropdownItem key="dashboard" onClick={()=>router.push(`/${dataProfile.role}`)}>
                         Dashboard
                     </DropdownItem>
                     <DropdownItem key="logout" color="danger" onClick={()=>handleLogout()}>
@@ -139,7 +137,7 @@ export default function Header2() {
                       </User>
                     </DropdownTrigger>
                     <DropdownMenu variant="flat" color="default">
-                      <DropdownItem key="dashboard" onClick={()=>router.push(`/${dataProfile.role}/dashboard`)}>
+                      <DropdownItem key="dashboard" onClick={()=>router.push(`/${dataProfile.role}`)}>
                         Dashboard
                       </DropdownItem>
                       <DropdownItem key="logout" color="danger" onClick={()=>handleLogout()}>

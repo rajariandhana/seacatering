@@ -16,11 +16,16 @@ interface SidebarItem {
 interface PropTypes {
   sidebarItems: SidebarItem[];
   isOpen: boolean;
+  role: string
 }
 
 const DashboardLayoutSidebar = (props: PropTypes) => {
   const { sidebarItems, isOpen } = props;
   const router = useRouter();
+  const isActive = (path: string) => {
+    if (path === `/${props.role}`) return router.pathname === `/${props.role}`;
+    return router.pathname.startsWith(path);
+  };
   return (
     <div
       className={cn(
@@ -40,9 +45,7 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
             <ListboxItem
               key={item.key}
               className={cn("my-1 h-12 text-2xl", {
-                "bg-primary text-black": router.pathname.startsWith(
-                  item.href,
-                ),
+                "bg-primary text-black": isActive(item.href),
               })}
               startContent={item.icon}
               textValue={item.label}

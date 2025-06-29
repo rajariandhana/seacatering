@@ -13,13 +13,13 @@ const SIDEBAR_ADMIN = [
   {
     key: "dashboard",
     label: "Dashboard",
-    href: "/admin/dashboard",
+    href: "/admin",
     icon: <CiGrid41 />,
   },
   {
-    key: "users",
-    label: "Users",
-    href: "/admin/users",
+    key: "members",
+    label: "Members",
+    href: "/admin/members",
     icon: <CiUser />,
   },
   {
@@ -30,7 +30,7 @@ const SIDEBAR_ADMIN = [
   },
   {
     key: "plans",
-    label: "plans",
+    label: "Plans",
     href: "/admin/plans",
     icon: <CiWallet />,
   }
@@ -40,7 +40,7 @@ const SIDEBAR_MEMBER = [
   {
     key: "dashboard",
     label: "Dashboard",
-    href: "/member/dashboard",
+    href: "/member",
     icon: <CiGrid41 />,
   },
   {
