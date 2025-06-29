@@ -33,6 +33,12 @@ const SIDEBAR_ADMIN = [
     label: "Plans",
     href: "/admin/plans",
     icon: <CiWallet />,
+  },
+  {
+    key: "testimonials",
+    label: "Testimonials",
+    href: "/admin/testimonials",
+    icon: <CiWallet />,
   }
 ];
 

@@ -12,14 +12,15 @@ Implement a "See More Details" button that opens a modal/pop-up showing addition
 klik(card) -> modal
 */
 import {Card, CardHeader, CardBody, Image} from "@nextui-org/react";
-import PlanCard, { Plan } from "@/components/views/meal-plan/PlanCard";
+import PlanCard from "@/components/views/meal-plan/PlanCard";
 import { domine } from "@/utils/fonts";
 import { useEffect, useState } from "react";
 import planServices from "@/services/plan.service";
 import Layout from "@/components/Layout";
+import { IPlan } from "@/types/Plan";
 
 export default function MealPlansPage() {
-  const [plans, setPlans]=useState<Plan[]>([]);
+  const [plans, setPlans]=useState<IPlan[]>([]);
   // const [loading, setLoading] = useState(true);
 
   useEffect(() => {

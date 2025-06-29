@@ -1,8 +1,8 @@
 import { cn, Radio } from "@nextui-org/react"
-import { Plan } from "../meal-plan/PlanCard"
+import { IPlan } from "@/types/Plan";
 import { domine } from "@/utils/fonts"
 
-const PlanRadio=({ plan }: { plan: Plan })=>{
+const PlanRadio=({ plan }: { plan: IPlan })=>{
   return (
     <Radio 
       classNames={{

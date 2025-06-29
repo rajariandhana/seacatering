@@ -1,7 +1,6 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Checkbox, CheckboxGroup, Form, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Radio, RadioGroup, Skeleton, Textarea, useDisclosure } from "@nextui-org/react"
 import { useEffect, useState } from "react";
 import { FaPhoneAlt, FaRegMoon, FaUserAlt } from "react-icons/fa";
-import { Plan } from "../meal-plan/PlanCard";
 import PlanRadio from "./PlanRadio";
 import { GiDeathSkull } from "react-icons/gi";
 import { ChipCheckbox } from "./ChipCheckbox";
@@ -12,6 +11,7 @@ import subscriptionServices from "@/services/subscription.service";
 import { useRouter } from "next/router";
 import planServices from "@/services/plan.service";
 import { calculateTotalPrice } from "@/types/SubscriptionConstants";
+import { IPlan } from "@/types/Plan";
 
 export interface SubscriptionData {
   phoneNumber:string;
@@ -42,16 +42,23 @@ export const CheckIcon = (props:any) => {
   );
 };
 
-const formLabel = (text:string)=>{
+export const formLabel = (text:string)=>{
   return (
     <span className="text-sm text-black">{text}</span>
   );
 }
 
 const mealTypes = [
-  ['Breakfast',<FiSunrise />],
-  ['Lunch',<FiSun />],
-  ['Dinner',<IoMoonOutline />],
+  {
+    key:'Breakfast',
+    icon:<FiSunrise />
+  },{
+    key:'Lunch',
+    icon:<FiSun />
+  },{
+    key:'Dinner',
+    icon:<IoMoonOutline />
+  },
 ]
 
 const validWeekdays = [
@@ -78,7 +85,7 @@ const SubscriptionForm = ({ onsubscribe }: Props) => {
   const [totalPrice, setTotalPrice]=useState<number>(0);
   const [loadingPlans, setLoadingPlans] = useState(true);
 
-  const [plans, setPlans]=useState<Plan[]>([]);
+  const [plans, setPlans]=useState<IPlan[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -221,7 +228,7 @@ const SubscriptionForm = ({ onsubscribe }: Props) => {
               onChange={setMealType}
             >
               {mealTypes.map((mType) => (
-                <ChipCheckbox value={mType[0]} key={mType[0]}>{mType[0]}{mType[1]}</ChipCheckbox>
+                <ChipCheckbox value={mType.key} key={mType.key}>{mType.key}{mType.icon}</ChipCheckbox>
               ))}
             </CheckboxGroup>
 

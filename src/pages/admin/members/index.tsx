@@ -1,9 +1,10 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import memberServices from "@/services/member.service";
 import { UserExtended } from "@/types/Auth";
-import { Avatar, Chip, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, User } from "@nextui-org/react";
+import { Chip, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, User } from "@nextui-org/react";
 import React, { useCallback, useEffect, useState } from "react";
-import { calculateTotalPrice } from "@/types/SubscriptionConstants";
+// import { calculateTotalPrice } from "@/types/SubscriptionConstants";
+
 const columns = [
   {key: "Member"},
   // {key: "Joined Date"},

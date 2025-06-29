@@ -1,3 +1,4 @@
+import { IPlan } from "@/types/Plan";
 import { domine } from "@/utils/fonts";
 import {
   Modal,
@@ -10,16 +11,7 @@ import {
   useDisclosure
 } from "@nextui-org/react";
 
-export interface Plan {
-  name: string;
-  description?: string;
-  price: number;
-  calories?: string;
-  suitableFor?: string;
-  highlights?: string[];
-}
-
-export const PlanCard = ({ plan }: { plan: Plan }) => {
+export const PlanCard = ({ plan }: { plan: IPlan }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
