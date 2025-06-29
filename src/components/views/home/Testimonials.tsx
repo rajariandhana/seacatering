@@ -15,7 +15,7 @@ const Testimonials = () => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await testimonialServices.findAll();
+        const response = await testimonialServices.index();
         setTestimonials(response.data);
       } catch (error) {
         console.error("Failed to fetch testimonials:", error);

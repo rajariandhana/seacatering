@@ -11,7 +11,6 @@ import {
 } from "@nextui-org/react";
 
 export interface Plan {
-  key: string;
   name: string;
   description?: string;
   price: number;
@@ -29,10 +28,10 @@ export const PlanCard = ({ plan }: { plan: Plan }) => {
         onClick={onOpen}
         className="p-3 border shadow-sm cursor-pointer hover:shadow-md transition"
       >
-        <Image src={`/meal-plan/${plan.key}.avif`} alt={`${plan.key}`} width={0} height={0}
+        <Image src={`/meal-plan/${plan.name}.avif`} alt={`${plan.name}`} width={0} height={0}
           className="w-full rounded-none mb-4">
         </Image>
-        <h3 className={`${domine.className} text-xl font-semibold mb-0 text-orange-400 ${plan.key==='vegetarian'?'text-green-600':''}`}>{plan.name}</h3>
+        <h3 className={`${domine.className} text-xl font-semibold mb-0 text-orange-400 ${plan.name==='Vegetarian'?'text-green-600':''}`}>{plan.name}</h3>
         <p className="text-gray-700 lg:h-24 xl:h-40">{plan.description}</p>
         <div className="flex justify-between items-center">
           <span className="text-lg font-semibold">
@@ -54,11 +53,11 @@ export const PlanCard = ({ plan }: { plan: Plan }) => {
                 {plan.name}
               </ModalHeader> */}
               <ModalBody className="p-4 gap-y-0 text-lg">
-                <Image src={`/meal-plan/${plan.key}.avif`} alt={`${plan.key}`} width={0} height={0}
+                <Image src={`/meal-plan/${plan.name}.avif`} alt={`${plan.name}`} width={0} height={0}
                   className="w-full rounded-none mb-4">
                 </Image>
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className={`${domine.className} text-2xl font-semibold mb-0 text-orange-400 ${plan.key==='vegetarian'?'text-green-600':''}`}>{plan.name}</h3>
+                  <h3 className={`${domine.className} text-2xl font-semibold mb-0 text-orange-400 ${plan.name==='Vegetarian'?'text-green-600':''}`}>{plan.name}</h3>
                   <span className="font-semibold text-md">{plan.calories} kcal</span>
                 </div>
                 <p className="mb-1">{plan.description}</p>

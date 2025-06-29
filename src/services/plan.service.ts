@@ -2,7 +2,11 @@ import instance from "@/libs/axios/instance";
 import { IPlan } from "@/types/Plan";
 
 const planServices = {
-    findAll: () =>
-        instance.get<IPlan[]>(`/plan/find-all`),
+    index: () =>
+        instance.get<IPlan[]>(`/plans`),
+    show: (name: string) =>
+        instance.get<IPlan>(`/plan`, {
+        params: { name },
+    }),
 };
 export default planServices;

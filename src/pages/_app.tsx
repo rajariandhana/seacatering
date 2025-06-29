@@ -4,7 +4,6 @@ import Layout from "@/components/Layout";
 import { NextUIProvider } from "@nextui-org/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries:{

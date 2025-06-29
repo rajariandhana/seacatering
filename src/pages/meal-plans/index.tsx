@@ -25,7 +25,7 @@ export default function MealPlansPage() {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await planServices.findAll();
+        const response = await planServices.index();
         setPlans(response.data);
       } catch (error) {
         console.error("Failed to fetch plans:", error);
@@ -47,7 +47,7 @@ export default function MealPlansPage() {
         </h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {plans.map((plan) => (
-            <PlanCard key={plan.key} plan={plan}></PlanCard>
+            <PlanCard key={plan.name} plan={plan}></PlanCard>
           ))}
         </div>      
       </section>
