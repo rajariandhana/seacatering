@@ -1,14 +1,18 @@
-import { Button, Card, CardBody, CardFooter, Form, Input, Textarea } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, Form, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea, useDisclosure } from "@nextui-org/react";
 import { formLabel } from "../subscription/SubscriptionForm";
 import { useState } from "react";
 import planServices from "@/services/plan.service";
 import { IPlan } from "@/types/Plan";
+import { useRouter } from "next/router";
+import { FaPlus } from "react-icons/fa6";
 
 const PlanCreate=()=>{
   const [planName, setPlanName]=useState<string>();
   const [planDescription, setPlanDescription]=useState<string>();
   const [planPrice, setPlanPrice]=useState<number>();
-
+  const router = useRouter();
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [loading,setLoading]=useState(false);
   const handleSubmit = async () => {
     if(!planName || !planDescription || planPrice===undefined){
       return;
@@ -20,16 +24,20 @@ const PlanCreate=()=>{
         description: planDescription,
         price: planPrice
       });
-      window.location.reload(); // or trigger re-fetch
+      router.push('/admin/plans');
     } catch (error) {
       console.error("Failed to create plan:", error);
     }
   }
   return(
-    <Card radius="sm" className="w-[400px] md:w-[800px] mb-8">
-      <Form onSubmit={handleSubmit}>
-        <CardBody className="flex flex-col gap-y-4">
-          <div className="flex justify-between w-full gap-4">
+    <>
+      <Button color="primary" endContent={<FaPlus />} radius="sm" className="text-black mb-4" onPress={onOpen}>
+        Add New
+      </Button>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          <ModalHeader></ModalHeader>
+          <ModalBody>
             <Input
               type="text"
               label={formLabel("Plan name")}
@@ -39,12 +47,24 @@ const PlanCreate=()=>{
               isRequired
               variant="faded"
               radius="sm"
-              className="rounded-md w-1/2"
-              required
-            />
+              className="rounded-md w-full"
+              placeholder="Super Diet..."
+              />
+            <Textarea
+              type="text"
+                label={formLabel("Plan description")}
+                labelPlacement="outside"
+                value={planDescription}
+                onValueChange={setPlanDescription}
+                isRequired
+                variant="faded"
+                radius="sm"
+                className="rounded-md w-full"
+                placeholder="Good for students..."
+                />
             <Input
               type="number"
-              label={formLabel("Plan price")}
+              label={formLabel("Plan price (Rp)")}
               labelPlacement="outside"
               // @ts-ignore
               value={planPrice}
@@ -53,30 +73,18 @@ const PlanCreate=()=>{
               isRequired
               variant="faded"
               radius="sm"
-              className="rounded-md w-1/2"
-              required
-              />
-          </div>
-            <Textarea
-              type="text"
-              label={formLabel("Plan description")}
-              labelPlacement="outside"
-              value={planDescription}
-              onValueChange={setPlanDescription}
-              isRequired
-              variant="faded"
-              radius="sm"
               className="rounded-md w-full"
-              required
-            />
-          </CardBody>
-          <CardFooter>
-            <Button type="submit">
-              Create Plan
-            </Button>
-          </CardFooter>
-        </Form>
-    </Card>
+              placeholder="10000"
+              />
+          </ModalBody>
+          <ModalFooter className="flex flex-col">
+            <Button radius="sm" type="submit" isLoading={loading} variant="solid" color="primary" className="text-black text-lg" startContent={<FaPlus />}>
+              Submit New Plan
+              </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   )
 }
 export default PlanCreate;

@@ -14,18 +14,19 @@ const columns = [
 
 const DashboardAdminPage = () => {
   const [members, setMembers] = useState<UserExtended[]>();
-  const [loadingMembers, setLoadingMembers] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     const fetchMembers = async () => {
-      setLoadingMembers(true);
+      setLoading(true);
       try {
+        // await new Promise((resolve) => setTimeout(resolve, 2000));
         const response = await memberServices.index();
         // @ts-ignore
         setMembers(response.data.data);
       } catch (error) {
         console.error("Failed to fetch subscription:", error);
       } finally {
-        setLoadingMembers(false);
+        setLoading(false);
       }
     };
 
@@ -50,7 +51,7 @@ const DashboardAdminPage = () => {
       case "Subscription":
         return(
           member.subscriptionId ? 
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-start">
             <Chip color="secondary" variant="flat">{member.subscriptionId.planName}</Chip>
             {member.subscriptionId.paused===false ?
             <Chip color="success" variant="flat">Active</Chip> : (
@@ -74,7 +75,7 @@ const DashboardAdminPage = () => {
 
   return (
     <DashboardLayout title="Members" type="admin">
-      {members && 
+      {/* {members &&  */}
         <Table radius="sm" className="w-[400px] md:w-[800px]">
           <TableHeader columns={columns}>
             {(column)=>(
@@ -83,7 +84,10 @@ const DashboardAdminPage = () => {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody items={members}>
+          <TableBody
+            items={!loading ? members ?? [] : []}
+            emptyContent={!loading ? "No rows to display." : "Loading..."}
+          >
             {(member)=>(
               <TableRow key={member.email}>
                 {(columnKey) => <TableCell>{renderCell(member, columnKey)}</TableCell>}
@@ -91,7 +95,7 @@ const DashboardAdminPage = () => {
             )}
           </TableBody>
         </Table>
-      }
+      {/* } */}
     </DashboardLayout>
   )
 }

@@ -19,17 +19,18 @@ const summaryColumns = [
 
 const Testimonials=()=>{
   const [testimonials, setTestimonials]=useState<Testimonial[]>([]);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
+        // await new Promise((resolve) => setTimeout(resolve, 2000));
         const response = await testimonialServices.index();
         setTestimonials(response.data);
       } catch (error) {
         console.error("Failed to fetch testimonials:", error);
       } finally {
-        // setLoading(false);
+        setLoading(false);
       }
     };
 
@@ -54,7 +55,9 @@ const Testimonials=()=>{
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={starSummary} emptyContent={"No summary to show."}>
+        <TableBody
+          items={!loading ? starSummary ?? [] : []}
+          emptyContent={!loading ? "No rows to display." : "Loading..."}>
           {(item) => (
             <TableRow key={item.star}>
               {(columnKey) => (
@@ -79,7 +82,9 @@ const Testimonials=()=>{
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={testimonials} emptyContent={"No rows to display."}>
+        <TableBody
+          items={!loading ? testimonials ?? [] : []}
+          emptyContent={!loading ? "No rows to display." : "Loading..."}>
           {(testimonial)=>(
             <TableRow key={testimonial.name}>
               {(columnKey) => <TableCell>{testimonial[columnKey as keyof ITestimonial]}</TableCell>}

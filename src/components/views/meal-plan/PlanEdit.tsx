@@ -3,12 +3,14 @@ import { Input, ModalHeader, ModalBody, Textarea, ModalFooter, Button } from "@n
 import { formLabel } from "../subscription/SubscriptionForm";
 import { useEffect, useState } from "react";
 import planServices from "@/services/plan.service";
+import { useRouter } from "next/router";
+import { CiEdit, CiTrash } from "react-icons/ci";
 
-const PlanEdit=({plan}:{plan:IPlan})=>{
+const PlanEdit=({plan,onSuccess}:{plan:IPlan;onSuccess:()=>void})=>{
   const [isUpdating, setIsUpdating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [newPlan, setNewPlan] = useState<IPlan>({name: "",price: 0,description: "",});
-
+  const router = useRouter();
   useEffect(() => {
     setNewPlan(plan);
   }, [plan]);
@@ -18,7 +20,8 @@ const PlanEdit=({plan}:{plan:IPlan})=>{
     try {
       setIsUpdating(true);
       await planServices.update(newPlan,plan.name);
-      window.location.reload();
+      // router.push('/admin/plans');
+      onSuccess();
     } catch (error) {
       console.error("Failed to update:", error);
     } finally {
@@ -30,7 +33,8 @@ const PlanEdit=({plan}:{plan:IPlan})=>{
     try {
       setIsDeleting(true);
       await planServices.delete(plan.name);
-      window.location.reload();
+      // router.push('/admin/plans');
+      onSuccess();
     } catch (error) {
       console.error("Failed to delete:", error);
     } finally {
@@ -52,6 +56,7 @@ const PlanEdit=({plan}:{plan:IPlan})=>{
           variant="faded"
           radius="sm"
           className="rounded-md w-full"
+          placeholder={newPlan.name}
           />
         <Textarea
           type="text"
@@ -65,10 +70,11 @@ const PlanEdit=({plan}:{plan:IPlan})=>{
             variant="faded"
             radius="sm"
             className="rounded-md w-full"
+            placeholder={newPlan.description}
             />
         <Input
           type="number"
-          label={formLabel("Plan price")}
+          label={formLabel("Plan price (Rp)")}
           labelPlacement="outside"
           value={newPlan.price.toString()}
           onValueChange={(value) =>
@@ -78,14 +84,17 @@ const PlanEdit=({plan}:{plan:IPlan})=>{
           variant="faded"
           radius="sm"
           className="rounded-md w-full"
+          placeholder={newPlan.price.toString()}
           />
       </ModalBody>
       <ModalFooter className="flex flex-col">
-        <Button radius="sm" onClick={handleUpdate} isLoading={isUpdating} variant="ghost" color="warning">
-            Update (will change the member{"'"}s price)
+        <Button radius="sm" onClick={handleUpdate} isLoading={isUpdating} variant="ghost" color="warning" startContent={<CiEdit size={20}/>}
+        className="text-md">
+            Update - affects subscription price
           </Button>
-          <Button radius="sm" onClick={handleDelete} isLoading={isDeleting} variant="ghost" color="danger">
-            Delete (will unsubscribe members with this plan)
+          <Button radius="sm" onClick={handleDelete} isLoading={isDeleting} variant="ghost" color="danger" startContent={<CiTrash size={20}/>}
+          className="text-md">
+            Delete - unsubscribe members with this plan
           </Button>
       </ModalFooter>
     </>
