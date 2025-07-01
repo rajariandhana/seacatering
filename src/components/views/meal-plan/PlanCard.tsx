@@ -10,6 +10,7 @@ import {
   Image,
   useDisclosure
 } from "@nextui-org/react";
+import Link from "next/link";
 
 export const PlanCard = ({ plan }: { plan: IPlan }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -69,7 +70,7 @@ export const PlanCard = ({ plan }: { plan: IPlan }) => {
                   <Button variant="light" onPress={onClose} className="rounded-md border">
                     Close
                   </Button>
-                  <Button onPress={onClose} className="rounded-md bg-orange-400 font-semibold">
+                  <Button as={Link} href="/member/subscription" className="rounded-md bg-orange-400 font-semibold">
                     Choose plan
                   </Button>
                 </div>
