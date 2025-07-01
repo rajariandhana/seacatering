@@ -13,3 +13,9 @@ The frontend uses [Next.js](https://nextjs.org/), a [React](https://react.dev) f
 - `/src/services` - encapsulates logic for API calls
 - `/src/types` - defines data types
 - `/src/utils` - utility methods
+
+## Credentials
+You can test as an admin with this credential
+| email | password |
+| - | - |
+| admin@seacatering.com | `Pass123?`|
