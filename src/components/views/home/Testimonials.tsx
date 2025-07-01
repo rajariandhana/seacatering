@@ -6,11 +6,24 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import testimonialServices from "@/services/testimonial.service";
+import { Skeleton } from "@nextui-org/react";
+
+const TestimonialCardSkeleton=()=>{
+  return(
+    <div className="flex flex-col p-3 border shadow-sm cursor-pointer hover:shadow-md transition bg-white w-[380px] h-48 gap-y-2">
+      <Skeleton className="w-2/6 rounded-md h-6"/>
+      <Skeleton className="w-2/5 rounded-md h-6 mb-2"/>
+      <Skeleton className="w-full rounded-md h-6"/>
+      <Skeleton className="w-full rounded-md h-6"/>
+      <Skeleton className="w-3/5 rounded-md h-6"/>
+    </div>
+  )
+}
 
 const Testimonials = () => {
 
   const [testimonials, setTestimonials]=useState<Testimonial[]>([]);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -20,14 +33,12 @@ const Testimonials = () => {
       } catch (error) {
         console.error("Failed to fetch testimonials:", error);
       } finally {
-        // setLoading(false);
+        setLoading(false);
       }
     };
 
     fetchTestimonials();
   }, []);
-
-  // if (loading) return <p>Loading plans...</p>;
 
   let sliderRef = useRef<any>(null);
   const next = () => {
@@ -82,46 +93,25 @@ const Testimonials = () => {
       <h1 className={`text-xl lg:text-4xl mb-6 lg:mb-12 ${domine.className}`}>
         Message from our satisfied customers
       </h1>
-      <div className="flex items-center justify-center gap-x-2 md:gap-x-4">
-          <GrFormPreviousLink onClick={previous} size={40} className="border border-gray-300 rounded-full border- flex items-center justify-center"/>
-          <Slider {...settings} ref={sliderRef}
-          className='flex flex-row justify-center items-center w-[320px] md:w-[600px] lg:w-[900px] xl:w-[1200px]'>
-            {testimonials.map((testimonial,index) => (
-              <TestimonialCard key={index} testimonial={testimonial}></TestimonialCard>
-            ))}
-          </Slider>
-          <GrFormNextLink onClick={next} size={40} className="border border-gray-300 rounded-full border- flex items-center justify-center"/>
-      </div>
+      {loading?
+        <div className="flex items-center justify-center gap-x-2 md:gap-x-4">
+          <TestimonialCardSkeleton/>
+          <TestimonialCardSkeleton/>
+          <TestimonialCardSkeleton/>
+        </div>
+        :
+        <div className="flex items-center justify-center gap-x-2 md:gap-x-4">
+            <GrFormPreviousLink onClick={previous} size={40} className="border border-gray-300 rounded-full border- flex items-center justify-center"/>
+            <Slider {...settings} ref={sliderRef}
+            className='flex flex-row justify-center items-center w-[320px] md:w-[600px] lg:w-[900px] xl:w-[1200px]'>
+              {testimonials.map((testimonial,index) => (
+                <TestimonialCard key={index} testimonial={testimonial}></TestimonialCard>
+              ))}
+            </Slider>
+            <GrFormNextLink onClick={next} size={40} className="border border-gray-300 rounded-full border- flex items-center justify-center"/>
+        </div>
+      }
     </section>
   )
 }
 export default Testimonials;
-
-
-const tempTestimonials:Testimonial[]=[
-  {
-    name:'Amanda P.',
-    message:'SEA Catering has completely changed the way I eat. The meals are always fresh, flavorful, and I love being able to customize based on my diet. Highly recommend!',
-    star:5,
-  },
-  {
-    name:'Rizky H',
-    message:'Delivery is fast and the food quality is top-notch. Sometimes the portion feels a bit small, but overall it\'s been a great experience.',
-    star:4,
-  },
-  {
-    name:'Clara W.',
-    message:'I\'m vegetarian and it\'s usually hard to find meal plans that suit me. SEA Catering\'s Vegetarian Wellness Plan is absolutely perfect!',
-    star:5,
-  },
-  {
-    name:'Kevin M.',
-    message:'The app makes ordering really easy. I\'ve tried both the Weight Loss and Fit & Fresh plans—both were delicious and kept me full.',
-    star:4,
-  },
-  {
-    name:'Yuni S.',
-    message:'Good food and I appreciate the detailed nutritional info. Just wish there were more variety in the weekly menus.',
-    star:3,
-  }
-];
