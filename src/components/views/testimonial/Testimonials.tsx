@@ -94,7 +94,7 @@ const Testimonials = () => {
         Message from our satisfied customers
       </h1>
       {loading?
-        <div className="flex items-center justify-center gap-x-2 md:gap-x-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-2 md:gap-4">
           <TestimonialCardSkeleton/>
           <TestimonialCardSkeleton/>
           <TestimonialCardSkeleton/>
