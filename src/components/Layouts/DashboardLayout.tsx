@@ -1,4 +1,4 @@
-import PageHead from "./PageHead";
+import PageHead from "../PageHead";
 import { ReactNode, useState } from "react";
 import DashboardLayoutSidebar from "./DashboardLayoutSidebar";
 import { SIDEBAR_ADMIN, SIDEBAR_MEMBER } from "./DashboardLayout.constants";

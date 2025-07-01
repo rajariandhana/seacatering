@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import { SubscriptionData } from "@/components/views/subscription/SubscriptionForm";
 import subscriptionServices from "@/services/subscription.service";
 import { ISubscription } from "@/types/Subscription";

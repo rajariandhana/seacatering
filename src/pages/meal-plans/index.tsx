@@ -1,27 +1,30 @@
-/*
-Customers should be able to explore available meal plans through an intuitive and interactive display.
-Requirements:
-Create a Menu / Meal Plans page that displays the different meal plans using interactive components (e.g., cards, collapsible sections, or modal pop-ups).
-Each meal plan should show:
-Plan Name
-Meal Plan Price
-Description
-Image (optional)
-Implement a "See More Details" button that opens a modal/pop-up showing additional plan information.
-
-klik(card) -> modal
-*/
-import {Card, CardHeader, CardBody, Image} from "@nextui-org/react";
 import PlanCard from "@/components/views/meal-plan/PlanCard";
 import { domine } from "@/utils/fonts";
 import { useEffect, useState } from "react";
 import planServices from "@/services/plan.service";
 import Layout from "@/components/Layout";
 import { IPlan } from "@/types/Plan";
+import { Skeleton } from "@nextui-org/react";
+
+const PlanCardSkeleton=()=>{
+  return (
+    <div className="w-[360px] p-3 border shadow-sm">
+      <Skeleton className="w-full rounded-md mb-4 h-44"/>
+      <Skeleton className="w-1/5 rounded-md h-6 mb-2"/>
+      <Skeleton className="w-full rounded-md h-6 mb-2"/>
+      <Skeleton className="w-full rounded-md h-6 mb-2"/>
+      <Skeleton className="w-3/5 rounded-md h-6 mb-24"/>
+      <div className="flex justify-between items-center">
+        <Skeleton className="w-1/3 rounded-md h-6"/>
+        <Skeleton className="w-1/5 rounded-md h-6"/>
+      </div>
+    </div>
+  )
+}
 
 export default function MealPlansPage() {
   const [plans, setPlans]=useState<IPlan[]>([]);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -31,7 +34,7 @@ export default function MealPlansPage() {
       } catch (error) {
         console.error("Failed to fetch plans:", error);
       } finally {
-        // setLoading(false);
+        setLoading(false);
       }
     };
 
@@ -46,11 +49,19 @@ export default function MealPlansPage() {
         <h1 className={`text-2xl lg:text-4xl mb-12 ${domine.className}`}>
           Find the right meal plan for you
         </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {plans.map((plan) => (
-            <PlanCard key={plan.name} plan={plan}></PlanCard>
-          ))}
-        </div>      
+        {loading?
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <PlanCardSkeleton/>
+            <PlanCardSkeleton/>
+            <PlanCardSkeleton/>
+          </div>
+          :
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {plans.map((plan) => (
+              <PlanCard key={plan.name} plan={plan}></PlanCard>
+            ))}
+          </div>
+        }
       </section>
     </Layout>
   );

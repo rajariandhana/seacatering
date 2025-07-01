@@ -1,4 +1,4 @@
-import PageHead from "./PageHead";
+import PageHead from "../PageHead";
 import { ReactNode } from "react";
 interface PropTypes {
     title?: string;

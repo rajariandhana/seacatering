@@ -13,8 +13,8 @@ import { domine, montserrat } from "@/utils/fonts";
 import KeyFeatureCard from "@/components/views/home/KeyFeatureCard";
 
 import { Link,Button } from "@nextui-org/react";
-import Testimonials from "@/components/views/home/Testimonials";
-import TestimonialForm from "@/components/views/home/TestimonialForm";
+import Testimonials from "@/components/views/testimonial/Testimonials";
+import TestimonialForm from "@/components/views/testimonial/TestimonialForm";
 import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 

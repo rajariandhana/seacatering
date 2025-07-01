@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import SubscriptionData from "@/components/views/subscription/SubscriptionData";
 import SubscriptionForm from "@/components/views/subscription/SubscriptionForm";
 import planServices from "@/services/plan.service";

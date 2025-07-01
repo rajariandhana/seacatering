@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import authServices from "@/services/auth.service";
 import useGetProfile from "@/utils/useGetProfile";
 import { Button, Card, CardBody, Divider, Input, Skeleton } from "@nextui-org/react";
