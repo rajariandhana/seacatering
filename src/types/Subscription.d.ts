@@ -8,6 +8,7 @@ interface ISubscription {
   deliveryDays:string[];
   allergies?:string;
   notes?:string;
-  paused?:boolean;
+  pauseStart:Date|null;
+  pauseEnd:Date|null;
 }
 export type {ISubscription};

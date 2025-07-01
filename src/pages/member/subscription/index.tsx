@@ -14,8 +14,7 @@ export default function SubscriptionPage() {
   const [loadingSubscription, setLoadingSubscription] = useState<boolean>(true);
   const [loadingPlan, setLoadingPlan] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchSubscription = async () => {
+  const fetchSubscription = async () => {
       setLoadingSubscription(true);
       try {
         const response = await subscriptionServices.show();
@@ -27,6 +26,7 @@ export default function SubscriptionPage() {
       }
     };
 
+  useEffect(() => {
     fetchSubscription();
   }, []);
 

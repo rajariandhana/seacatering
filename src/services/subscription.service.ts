@@ -6,8 +6,8 @@ const subscriptionServices = {
         instance.post(`/subscription`, payload),
     show: () =>
         instance.get('/subscription'),
-    togglePause: () => 
-        instance.patch('/subscription'),
+    pause: (payload:{pauseStart:Date;pauseEnd:Date;}) => 
+        instance.patch('/subscription',payload),
     delete: () => 
         instance.delete('/subscription'),
 };

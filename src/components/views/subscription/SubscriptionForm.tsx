@@ -88,19 +88,19 @@ const SubscriptionForm = ({ onsubscribe }: Props) => {
   const [plans, setPlans]=useState<IPlan[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
+  const fetchPlans = async () => {
+    setLoadingPlans(true);
+    try {
+      const response = await planServices.index();
+      setPlans(response.data);
+    } catch (error) {
+      console.error("Failed to fetch plans:", error);
+    } finally {
+      setLoadingPlans(false);
+    }
+  };
+  
   useEffect(() => {
-    const fetchPlans = async () => {
-      setLoadingPlans(true);
-      try {
-        const response = await planServices.index();
-        setPlans(response.data);
-      } catch (error) {
-        console.error("Failed to fetch plans:", error);
-      } finally {
-        setLoadingPlans(false);
-      }
-    };
-
     fetchPlans();
   }, []);
 
@@ -117,7 +117,9 @@ const SubscriptionForm = ({ onsubscribe }: Props) => {
       mealType: mealType as string[],
       deliveryDays: deliveryDays as string[],
       allergies: formData.get("allergies") as string || "",
-      notes: formData.get("notes") as string || ""
+      notes: formData.get("notes") as string || "",
+      pauseStart: null,
+      pauseEnd: null,
     }
     // console.log(data);
     
