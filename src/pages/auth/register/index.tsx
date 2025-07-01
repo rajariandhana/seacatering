@@ -6,6 +6,7 @@ import { FaEye,FaEyeSlash } from "react-icons/fa6";
 import { Controller } from "react-hook-form";
 import { cn } from "@/utils/cn";
 import Logo from "@/components/Logo";
+import { CiMail, CiUser } from "react-icons/ci";
 
 const RegisterPage = () => {
   const {visiblePassword, handleVisiblePassword, control, handleSubmit, handleRegister, isPendingRegister, errors} = useRegister();
@@ -28,18 +29,19 @@ const RegisterPage = () => {
             }
             <form className={cn("flex w-80 flex-col", Object.keys(errors).length > 0 ? "gap-2":"gap-4")} onSubmit={handleSubmit(handleRegister)}>
                 <Controller name="fullName" control={control} render={({field}) => 
-                    <Input {...field} type="text" label="Fullname" variant="bordered" autoComplete="off"  radius="sm"
+                    <Input {...field} type="text" label="Fullname" variant="bordered" autoComplete="off"  radius="sm" startContent={<CiUser size={24}/>}
                         isInvalid={errors.fullName !== undefined} errorMessage={errors.fullName?.message}>
                     </Input>
                 }/>
                 <Controller name="email" control={control} render={({field}) => 
-                    <Input {...field} type="email" label="Email" variant="bordered" autoComplete="off"  radius="sm">
+                    <Input {...field} type="email" label="Email" variant="bordered" autoComplete="off"  radius="sm" startContent={<CiMail size={24}/>}>
                         isInvalid={errors.email !== undefined} errorMessage={errors.email?.message}
                     </Input>
                 }/>
                 <Controller name="password" control={control} render={({field}) => 
                     <Input {...field} type={visiblePassword.password ? 'text':'password'} label="Password" variant="bordered" autoComplete="off"  radius="sm"
                         isInvalid={errors.password !== undefined} errorMessage={errors.password?.message}
+                        description="Min. 8 characters with at least one uppercase, one lowercase, one number, and one special character."
                         endContent={
                             <button className="foxcus:outline-none"
                             type="button"

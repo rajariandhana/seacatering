@@ -201,7 +201,7 @@ const SubscriptionForm = ({ onsubscribe }: Props) => {
           </CardHeader>
           <CardBody>
             {loadingPlans ? (
-              <Skeleton className="h-20 w-full"></Skeleton>
+              <Skeleton className="h-20 w-full rounded-md"></Skeleton>
               ):(
                 <RadioGroup
                 className="mb-8"

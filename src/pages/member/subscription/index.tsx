@@ -30,31 +30,31 @@ export default function SubscriptionPage() {
     fetchSubscription();
   }, []);
 
+  const fetchPlan = async () => {
+    if (!subscription?.planName) return;
+
+    setLoadingPlan(true);
+    try {
+      const response = await planServices.show(subscription.planName);
+      setPlan(response.data);
+    } catch (error) {
+      console.error("Failed to fetch plan:", error);
+    } finally {
+      setLoadingPlan(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchPlan = async () => {
-      if (!subscription?.planName) return;
-
-      setLoadingPlan(true);
-      try {
-        const response = await planServices.show(subscription.planName);
-        setPlan(response.data);
-      } catch (error) {
-        console.error("Failed to fetch plan:", error);
-      } finally {
-        setLoadingPlan(false);
-      }
-    };
-
     fetchPlan();
   }, [subscription]);
 
   const renderSkeleton = () => (
     <div className="max-w-96 p-4">
-      <Skeleton className="h-6 w-2/3 mb-4" />
-      <Skeleton className="h-4 w-full mb-2" />
-      <Skeleton className="h-4 w-full mb-2" />
-      <Skeleton className="h-4 w-1/2 mb-4" />
-      <Skeleton className="h-10 w-full" />
+      <Skeleton className="h-6 w-2/3 mb-4 rounded-md" />
+      <Skeleton className="h-4 w-full mb-2 rounded-md" />
+      <Skeleton className="h-4 w-full mb-2 rounded-md" />
+      <Skeleton className="h-4 w-1/2 mb-4 rounded-md" />
+      <Skeleton className="h-10 w-full rounded-md" />
     </div>
   );
 
