@@ -14,6 +14,8 @@ const authServices = {
             }
     }),
     getProfile: () =>
-        instance.get(`${endpoint.AUTH}/me`)
+        instance.get(`${endpoint.AUTH}/me`),
+    update: (payload:any) => 
+        instance.patch(`${endpoint.AUTH}`, payload)
 };
 export default authServices;

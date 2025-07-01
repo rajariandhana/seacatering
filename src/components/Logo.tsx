@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Montserrat } from "next/font/google";
+import Link from "next/link";
 interface Logo {
   height: number; // e.g., 100 (px)
 }
@@ -14,11 +15,11 @@ export default function Logo({ height }: Logo) {
   const textSize = height * 1.3; // Adjust as needed for proportionality
 
   return (
-    <section className="flex items-center gap-" style={{ height }}>
+    <Link href={"/"} className="flex items-center gap-" style={{ height }}>
       <Image src="/logo.png" alt="Logo" width={logoWidth} height={logoHeight} />
       <h1 style={{ fontSize: `${textSize}px` }} className={`font-semibold ${montserrat.className}`}>
         SEA <span className="text-orange-400">Cat</span>ering
       </h1>
-    </section>
+    </Link>
   );
 }

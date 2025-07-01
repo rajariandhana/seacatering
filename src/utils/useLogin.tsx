@@ -6,6 +6,7 @@ import { ILogin } from "@/types/Auth";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
+import useGetProfile from "./useGetProfile";
 
 const loginSchema = yup.object().shape({
     email: yup.string().required("Please input your email"),
@@ -36,6 +37,7 @@ const useLogin = () => {
         if(result?.error && result?.status===401){
             throw new Error("Invalid credentials");
         }
+        // console.log(result);
         return result;
     };
 

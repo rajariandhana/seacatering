@@ -6,6 +6,7 @@ import { FaEye,FaEyeSlash } from "react-icons/fa6";
 import { Controller } from "react-hook-form";
 import { cn } from "@/utils/cn";
 import Logo from "@/components/Logo";
+import { CiMail } from "react-icons/ci";
 
 const LoginPage = () => {
   const {isVisible, toggleVisibility, control, handleSubmit, handleLogin, isPendingLogin, errors} = useLogin();
@@ -28,7 +29,7 @@ const LoginPage = () => {
             }
             <form className={cn("flex w-80 flex-col", Object.keys(errors).length > 0 ? "gap-2":"gap-4")} onSubmit={handleSubmit(handleLogin)}>
                 <Controller name="email" control={control} render={({field}) => 
-                    <Input {...field} type="email" label="Email" variant="bordered" autoComplete="off" radius="sm">
+                    <Input {...field} type="email" label="Email" variant="bordered" autoComplete="off" radius="sm" startContent={<CiMail size={24}/>}>
                         isInvalid={errors.email !== undefined} errorMessage={errors.email?.message}
                     </Input>
                 }/>

@@ -9,4 +9,11 @@
 - admin account also put in pdf!
 - mealplans select go to sub page
 - README
-- useLoading
+- useLoading and SKELETON
+- +62 prefix on phone?
+- remove Key to just Name as identifier
+- login go to /role/dashboard
+- useCallback to cache?
+- make testimonial star disabled change
+- onunsubscribe -> put into archive, change relationship
+DashboardLayout

@@ -2,9 +2,9 @@ import instance from "@/libs/axios/instance";
 import { ITestimonial } from "@/types/Testimonial";
 
 const testimonialServices = {
-    findAll: () =>
-        instance.get<ITestimonial[]>(`/testimonial/find-all`),
+    index: () =>
+        instance.get<ITestimonial[]>(`/testimonials`),
     create: (payload:ITestimonial) =>
-        instance.post(`/testimonial/create`, payload),
+        instance.post(`/testimonial`, payload),
 };
 export default testimonialServices;
