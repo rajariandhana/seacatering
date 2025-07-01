@@ -1,4 +1,4 @@
-import AuthLayout from "@/components/AuthLayout";
+import AuthLayout from "@/components/Layouts/AuthLayout";
 import { Input,Button, Spinner } from "@nextui-org/react";
 import Link from "next/link";
 import useLogin from "../../../utils/useLogin";

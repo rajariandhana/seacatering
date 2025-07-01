@@ -3,11 +3,13 @@ import {
   CiGrid41,
   CiSettings,
   CiShoppingTag,
+  CiStar,
   CiUser,
   CiViewList,
   CiWallet,
 } from "react-icons/ci";
 import {  } from "react-icons/fa";
+import { LiaUtensilsSolid } from "react-icons/lia";
 
 const SIDEBAR_ADMIN = [
   {
@@ -26,13 +28,13 @@ const SIDEBAR_ADMIN = [
     key: "plans",
     label: "Plans",
     href: "/admin/plans",
-    icon: <CiWallet />,
+    icon: <LiaUtensilsSolid />,
   },
   {
     key: "testimonials",
     label: "Testimonials",
     href: "/admin/testimonials",
-    icon: <CiWallet />,
+    icon: <CiStar />,
   }
 ];
 

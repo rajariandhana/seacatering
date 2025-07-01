@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Button, Link } from "@nextui-org/react";
 import { useRouter } from "next/router";
-import AuthLayout from "@/components/AuthLayout";
+import AuthLayout from "@/components/Layouts/AuthLayout";
 const RegisterSuccess = () => {
     const router = useRouter();
     return (

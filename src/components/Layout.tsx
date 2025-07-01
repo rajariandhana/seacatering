@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { inter } from "@/utils/fonts";
-import Header2 from "./Header2";
+import Header2 from "./Header";
 import PageHead from "./PageHead";
 import Footer from "./Footer";
 // const jakarta = Plus_Jakarta_Sans({

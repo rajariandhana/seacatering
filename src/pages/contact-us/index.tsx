@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import TestimonialForm from "@/components/views/home/TestimonialForm";
+import TestimonialForm from "@/components/views/testimonial/TestimonialForm";
 import { Avatar, Button, Card,CardBody, CardFooter, CardHeader, Link, User } from "@nextui-org/react";
 import React, { useState } from "react";
 import { FaXTwitter } from "react-icons/fa6";

@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
 import memberServices from "@/services/member.service";
 import { UserExtended } from "@/types/Auth";
 import { CalendarDate, parseAbsoluteToLocal, getLocalTimeZone } from "@internationalized/date";

@@ -1,5 +1,5 @@
-import DashboardLayout from "@/components/DashboardLayout";
-import { Testimonial } from "@/components/views/home/TestimonialCard";
+import DashboardLayout from "@/components/Layouts/DashboardLayout";
+import { Testimonial } from "@/components/views/testimonial/TestimonialCard";
 import testimonialServices from "@/services/testimonial.service";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import { useState, useEffect, useCallback, useMemo } from "react";
