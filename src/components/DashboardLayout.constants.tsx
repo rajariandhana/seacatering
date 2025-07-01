@@ -11,15 +11,9 @@ import {  } from "react-icons/fa";
 
 const SIDEBAR_ADMIN = [
   {
-    key: "dashboard",
-    label: "Dashboard",
-    href: "/admin",
-    icon: <CiGrid41 />,
-  },
-  {
     key: "members",
     label: "Members",
-    href: "/admin/members",
+    href: "/admin",
     icon: <CiUser />,
   },
   {
@@ -44,15 +38,9 @@ const SIDEBAR_ADMIN = [
 
 const SIDEBAR_MEMBER = [
   {
-    key: "dashboard",
-    label: "Dashboard",
-    href: "/member",
-    icon: <CiGrid41 />,
-  },
-  {
     key: "subscription",
     label: "Subscription",
-    href: "/member/subscription",
+    href: "/member",
     icon: <CiWallet />,
   },
   {

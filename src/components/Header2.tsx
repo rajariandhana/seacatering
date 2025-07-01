@@ -31,7 +31,7 @@ const links = [
   {
     key:'subscription',
     label:'Subscription',
-    href:'/member/subscription'
+    href:'/member'
   },
   {
     key:'contact-us',

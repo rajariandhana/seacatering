@@ -2,6 +2,8 @@ import instance from "@/libs/axios/instance";
 import { ISubscription } from "@/types/Subscription";
 
 const subscriptionServices = {
+    index: () =>
+        instance.get('/subscriptions'),
     create: (payload:ISubscription) =>
         instance.post(`/subscription`, payload),
     show: () =>
